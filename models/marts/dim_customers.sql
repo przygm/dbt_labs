@@ -1,7 +1,7 @@
-with customers as (   
+with customers as (
     select * from {{ ref ('stg_jaffle_shop__customers')}}
 ),
-orders as (
+orders as ( --orders
     select * from {{ ref ('fct_orders')}}
 ),
 customer_orders as (
