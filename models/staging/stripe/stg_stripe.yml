@@ -2,21 +2,26 @@ version: 2
 
 models:
   - name: stg_stripe__payments
+    description: This model stages raw payments data from the Stripe source, providing a cleaned and structured format for further analysis.
     columns: 
       - name: payment_id
+        description: Primary key for the payments table, ensuring each payment is uniquely identified.
         tests:
           - unique
           - not_null
       - name: order_id
+        description: A foreign key that links each payment to a specific order from the jaffle shop.
         tests:
           - relationships:
               to: ref('stg_jaffle_shop__orders')
               field: order_id                
       - name: payment_method
+        description: The method of payment "{{ doc('payment_method') }}"
         tests:
           - accepted_values:
               values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
       - name: status
+        description: The current status of the payment. Possible values are 'success' and 'fail'.
         tests:
           - accepted_values:
               values: ['fail', 'success']        
